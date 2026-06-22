@@ -1,26 +1,252 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ─── Tailwind Design Tokens ─────────────────────────────────────────── */
+@theme {
+  --font-sans:    var(--font-jakarta), system-ui, sans-serif;
+  --font-ui:      var(--font-inter), system-ui, sans-serif;
+  --font-display: var(--font-aldrich), system-ui, serif;
+
+  --color-navy:   #000720;
+  --color-blue:   #0000ff;
+  --color-yellow: #ffc41a;
+  --color-red:    #ed1c24;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ─── CSS Theme Variables (dark / light) ─────────────────────────────── */
+:root,
+[data-theme="dark"] {
+  --bg:                     #000720;
+  --bg-card:                #000d35;
+  --text:                   #ffffff;
+  --text-muted:             #8899bb;
+  --accent:                 #ffc41a;
+  --accent-alt:             #0088ff;
+  --accent-ter:             #0000ff;
+  --nav-bg:                 rgba(0, 7, 32, 0.0);
+  --nav-bg-scrolled:        rgba(0, 7, 32, 0.85);
+  --cursor-ring:            rgba(255, 196, 26, 0.8);
+  --cursor-ring-glow:       rgba(255, 196, 26, 0.35);
+  --cursor-ring-hover:      rgba(0, 0, 255, 0.85);
+  --cursor-ring-hover-glow: rgba(0, 0, 255, 0.35);
+  --cursor-glow:            rgba(255, 196, 26, 0.07);
+  --contact-email-hover:    #0088ff;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+[data-theme="light"] {
+  --bg:                     #f5f6fa;
+  --bg-card:                #eceef6;
+  --text:                   #000720;
+  --text-muted:             #4a5068;
+  --accent:                 #0000ff;
+  --accent-alt:             #ffc41a;
+  --accent-ter:             #ffc41a;
+  --nav-bg:                 rgba(245, 246, 250, 0.0);
+  --nav-bg-scrolled:        rgba(245, 246, 250, 0.88);
+  --cursor-ring:            rgba(0, 0, 255, 0.7);
+  --cursor-ring-glow:       rgba(0, 0, 255, 0.25);
+  --cursor-ring-hover:      rgba(255, 196, 26, 0.9);
+  --cursor-ring-hover-glow: rgba(255, 196, 26, 0.4);
+  --cursor-glow:            rgba(0, 0, 255, 0.13);
+  --contact-email-hover:    #000720;
+}
+
+/* ─── Base ───────────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  transition: background-color 0.3s ease, color 0.2s ease;
+}
+
+/* ─── Custom Cursor ──────────────────────────────────────────────────── */
+
+/* Hide native cursor when custom cursor is active */
+.cursor-custom,
+.cursor-custom * {
+  cursor: none !important;
+}
+
+/* Shared base for dot and ring */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   OPTION A (active) — Point blanc + ring coloré
+   ══════════════════════════════════════════════════════════════ */
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #ffffff;
+}
+
+
+/* Ring — OPTION A & B */
+.cursor-ring {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--cursor-ring);
+  box-shadow: 0 0 14px 3px var(--cursor-ring-glow);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cursor-ring.is-hovering {
+  border-color: var(--accent-alt);
+  box-shadow: 0 0 14px 3px var(--cursor-ring-hover-glow);
+}
+
+
+
+/* Faisceau lumineux radial qui suit la souris */
+.cursor-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2; /* au-dessus des sections (position:relative, z:auto=0) mais sous la navbar (z:50) */
+  background: radial-gradient(
+    450px circle at var(--cursor-x, -999px) var(--cursor-y, -999px),
+    var(--cursor-glow),
+    transparent 65%
+  );
+}
+
+/* ─── Section Divider (gradient dégradé en boucle) ──────────────────── */
+.divider {
+  width: 100%;
+  height: 3px;
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.divider__track {
+  position: absolute;
+  inset: 0;
+  width: 200%;
+  /*
+   * Gradient tuilé sur 50% (= 1 tuile = 100vw) → loop seamless avec translateX(-50%)
+   * Chaque couleur occupe ≈ 33% : bleu (0-14% + 86-100%), blanc (18-49%), jaune (51-82%)
+   */
+  background: linear-gradient(
+    to right,
+    #0000ff  0%,
+    #0000ff 10%,
+    #ffffff 22%,
+    #ffffff 47%,
+    #ffc41a 53%,
+    #ffc41a 80%,
+    #0000ff 88%,
+    #0000ff 100%
+  );
+  background-size: 50% 100%;
+  /* background-repeat: repeat-x; */
+  animation: marquee 8s linear infinite;
+}
+
+/* ─── Keyframes ──────────────────────────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes bounce-down {
+  0%, 100% { transform: translateY(0);   opacity: 0.45; }
+  50%       { transform: translateY(8px); opacity: 1; }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.blink-cursor {
+  animation: blink-cursor 1.06s step-end infinite;
+}
+
+@keyframes reveal-ltr {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0% 0 0); }
+}
+
+.animate-reveal-ltr {
+  clip-path: inset(0 100% 0 0);
+  animation: reveal-ltr 2s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+/* ─── Contact email hover ───────────────────────────────────────────── */
+.contact-email {
+  color: var(--accent);
+  transition: color 0.2s ease;
+}
+.contact-email:hover {
+  color: var(--accent-alt);
+}
+
+/* ─── Project card hover ─────────────────────────────────────────────── */
+.project-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 0 0 0 transparent;
+}
+@media (hover: hover) {
+  .project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 0 2px var(--accent);
+  }
+}
+
+/* ─── Hero entrance animations ──────────────────────────────────────── */
+.animate-fade-up {
+  opacity: 0;
+  animation: fade-up 0.7s ease forwards;
+}
+
+/* ─── Scroll reveal (IntersectionObserver) ───────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Scrollbar hidden (carousel mobile) ────────────────────────────── */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─── Reduced Motion ─────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  body { transition: none; }
+  .divider__track { animation-play-state: paused; }
+  .cursor-dot,
+  .cursor-ring,
+  .cursor-ring.is-hovering { transition: none; }
+  .animate-fade-up  { animation: none; opacity: 1; transform: none; }
+  .animate-reveal-ltr { animation: none; clip-path: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
 }
