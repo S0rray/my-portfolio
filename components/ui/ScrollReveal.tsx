@@ -23,10 +23,7 @@ export default function ScrollReveal({ children, className = '', delay = 0 }: Pr
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add('in-view');
-          observer.disconnect();
-        }
+        el.classList.toggle('in-view', entry.isIntersecting);
       },
       { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
     );

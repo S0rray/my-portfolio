@@ -70,6 +70,12 @@ body {
   cursor: none !important;
 }
 
+/* Curseur custom uniquement sur desktop (≥ 1024px) */
+@media (max-width: 1023px) {
+  .cursor-dot, .cursor-ring, .cursor-glow { display: none !important; }
+}
+
+
 /* Shared base for dot and ring */
 .cursor-dot,
 .cursor-ring {
@@ -120,6 +126,33 @@ body {
     var(--cursor-glow),
     transparent 65%
   );
+}
+
+/* ─── Hero spheres (sphères lumineuses du bandeau) ──────────────────── */
+.hero-spheres {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle clamp(180px, 50vw, 580px) at left center,
+      rgba(255,196,26,0.85) 0%, rgba(0,0,255,0.45) 35%,
+      rgba(0,0,255,0.15) 58%, transparent 72%),
+    radial-gradient(circle clamp(180px, 50vw, 580px) at right center,
+      rgba(255,196,26,0.85) 0%, rgba(0,0,255,0.45) 35%,
+      rgba(0,0,255,0.15) 58%, transparent 72%);
+}
+
+/* Bleu plus marqué sur mobile où les sphères sont plus petites */
+@media (max-width: 639px) {
+  .hero-spheres {
+    background:
+      radial-gradient(circle clamp(180px, 50vw, 580px) at left center,
+        rgba(255,196,26,0.9) 0%, rgba(0,0,255,0.65) 35%,
+        rgba(0,0,255,0.28) 58%, transparent 74%),
+      radial-gradient(circle clamp(180px, 50vw, 580px) at right center,
+        rgba(255,196,26,0.9) 0%, rgba(0,0,255,0.65) 35%,
+        rgba(0,0,255,0.28) 58%, transparent 74%);
+  }
 }
 
 /* ─── Section Divider (gradient dégradé en boucle) ──────────────────── */

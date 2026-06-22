@@ -7,7 +7,6 @@ export default function CustomCursor() {
   const ringRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // No custom cursor on touch-primary devices (phones/tablets)
     if (window.matchMedia('(pointer: coarse)').matches) return;
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -18,6 +17,8 @@ export default function CustomCursor() {
     let visible = false;
 
     const onMouseMove = (e: MouseEvent) => {
+      // Ignore events synthesized from a touch tap (hybrid devices)
+      if ((e as MouseEvent & { sourceCapabilities?: { firesTouchEvents?: boolean } }).sourceCapabilities?.firesTouchEvents) return;
       mouseX = e.clientX;
       mouseY = e.clientY;
 

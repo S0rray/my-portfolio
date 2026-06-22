@@ -3,27 +3,38 @@ import { SiJavascript } from 'react-icons/si';
 import AnimatedArrows from '@/components/ui/AnimatedArrows';
 import TypewriterText from '@/components/ui/TypewriterText';
 
-// ── Chevron banner geometry ────────────────────────────────────────────
-// Gap visuel réel entre bras = CW + G, pas G seul.
-// STEP contrôle directement la distance entre ouvertures adjacentes.
-// Avec STEP < CW les flèches se chevauchent → gap visible = STEP.
+// ── Chevron banner geometry — desktop (h-32.5 = 130px) ───────────────
 const BH     = 130;
 const MID    = BH / 2;
-const CW     = 60;       // arm length of each chevron
-const STEP   = 25;       // horizontal spacing between adjacent chevron openings
-const OFFSET = 15;       // margin from the banner edge for the outermost arrow
-const TW     = OFFSET + 4 * STEP + CW;  // group width = 145
+const CW     = 60;
+const STEP   = 25;
+const OFFSET = 15;
+const TW     = OFFSET + 4 * STEP + CW;  // 145px — 4 chevrons
 
-// Left group: chevrons pointing LEFT (←)  tip at x, opening at x+CW
 function arrowL(idx: number): string {
   const x = OFFSET + idx * STEP;
   return `M${x + CW} 0 L${x} ${MID} L${x + CW} ${BH}`;
 }
-
-// Right group: chevrons pointing RIGHT (→)  tip at x+CW, opening at x
 function arrowR(idx: number): string {
   const x = OFFSET + idx * STEP;
   return `M${x} 0 L${x + CW} ${MID} L${x} ${BH}`;
+}
+
+// ── Chevron banner geometry — mobile (h-20 = 80px) ────────────────────
+const BH_M     = 80;
+const MID_M    = BH_M / 2;
+const CW_M     = 30;
+const STEP_M   = 16;
+const OFFSET_M = 8;
+const TW_M     = OFFSET_M + 2 * STEP_M + CW_M;  // 70px — 2 chevrons
+
+function arrowLM(idx: number): string {
+  const x = OFFSET_M + idx * STEP_M;
+  return `M${x + CW_M} 0 L${x} ${MID_M} L${x + CW_M} ${BH_M}`;
+}
+function arrowRM(idx: number): string {
+  const x = OFFSET_M + idx * STEP_M;
+  return `M${x} 0 L${x + CW_M} ${MID_M} L${x} ${BH_M}`;
 }
 
 const TECH_STACK = [
@@ -77,62 +88,60 @@ export default function HeroSection() {
           on each edge, with 4 solid chevrons per side.
          ─────────────────────────────────────────────────────────────── */}
       <div
-        className="animate-reveal-ltr relative w-full overflow-hidden shrink-0"
-        style={{ animationDelay: '0.15s', height: `${BH}px` }}
+        className="animate-reveal-ltr relative w-full overflow-hidden shrink-0 h-20 sm:h-32.5"
+        style={{ animationDelay: '0.15s' }}
       >
-        {/* Round luminous spheres: yellow core → blue → transparent */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          aria-hidden="true"
-          style={{
-            background: [
-              'radial-gradient(circle 580px at left center, rgba(255,196,26,0.85) 0%, rgba(0,0,255,0.45) 35%, rgba(0,0,255,0.15) 58%, transparent 72%)',
-              'radial-gradient(circle 580px at right center, rgba(255,196,26,0.85) 0%, rgba(0,0,255,0.45) 35%, rgba(0,0,255,0.15) 58%, transparent 72%)',
-            ].join(', '),
-          }}
-        />
+        {/* Sphères lumineuses — taille responsive via CSS (.hero-spheres) */}
+        <div className="hero-spheres" aria-hidden="true" />
 
-        {/* Left group — 4 chevrons pointing LEFT (←) */}
-        <div className="absolute left-0 inset-y-0 pointer-events-none" aria-hidden="true">
-          <svg width={TW} height={BH} viewBox={`0 0 ${TW} ${BH}`}>
-            {[0, 1, 2, 3].map((i) => (
-              <path
-                key={i}
-                d={arrowL(i)}
-                fill="none"
-                stroke="rgba(255,255,255,0.38)"
-                strokeWidth="7"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+        {/* Left group — mobile : 2 chevrons (h-20 = 80px) */}
+        <div className="sm:hidden absolute left-0 inset-y-0 pointer-events-none" aria-hidden="true">
+          <svg width={TW_M} height={BH_M} viewBox={`0 0 ${TW_M} ${BH_M}`}>
+            {[0, 1].map((i) => (
+              <path key={i} d={arrowLM(i)} fill="none"
+                stroke="rgba(255,255,255,0.42)" strokeWidth="5"
+                strokeLinecap="round" strokeLinejoin="round" />
             ))}
           </svg>
         </div>
 
-        {/* Right group — 4 chevrons pointing RIGHT (→) */}
-        <div className="absolute right-0 inset-y-0 pointer-events-none" aria-hidden="true">
+        {/* Right group — mobile : 2 chevrons */}
+        <div className="sm:hidden absolute right-0 inset-y-0 pointer-events-none" aria-hidden="true">
+          <svg width={TW_M} height={BH_M} viewBox={`0 0 ${TW_M} ${BH_M}`}>
+            {[0, 1].map((i) => (
+              <path key={i} d={arrowRM(i)} fill="none"
+                stroke="rgba(255,255,255,0.42)" strokeWidth="5"
+                strokeLinecap="round" strokeLinejoin="round" />
+            ))}
+          </svg>
+        </div>
+
+        {/* Left group — desktop : 4 chevrons (sm:h-32.5 = 130px) */}
+        <div className="hidden sm:block absolute left-0 inset-y-0 pointer-events-none" aria-hidden="true">
           <svg width={TW} height={BH} viewBox={`0 0 ${TW} ${BH}`}>
             {[0, 1, 2, 3].map((i) => (
-              <path
-                key={i}
-                d={arrowR(i)}
-                fill="none"
-                stroke="rgba(255,255,255,0.38)"
-                strokeWidth="5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+              <path key={i} d={arrowL(i)} fill="none"
+                stroke="rgba(255,255,255,0.38)" strokeWidth="7"
+                strokeLinecap="round" strokeLinejoin="round" />
+            ))}
+          </svg>
+        </div>
+
+        {/* Right group — desktop : 4 chevrons */}
+        <div className="hidden sm:block absolute right-0 inset-y-0 pointer-events-none" aria-hidden="true">
+          <svg width={TW} height={BH} viewBox={`0 0 ${TW} ${BH}`}>
+            {[0, 1, 2, 3].map((i) => (
+              <path key={i} d={arrowR(i)} fill="none"
+                stroke="rgba(255,255,255,0.38)" strokeWidth="5"
+                strokeLinecap="round" strokeLinejoin="round" />
             ))}
           </svg>
         </div>
 
         {/* Tagline */}
-        <div
-          className="absolute inset-0 flex items-center justify-center text-center"
-          style={{ paddingLeft: `${TW}px`, paddingRight: `${TW}px` }}
-        >
+        <div className="absolute inset-0 flex items-center justify-center text-center px-6 sm:px-43.75">
           <p
-            className="text-2xl leading-relaxed"
+            className="text-base sm:text-2xl leading-relaxed"
             style={{
               color: 'var(--text)',
               fontFamily: 'var(--font-display)',
