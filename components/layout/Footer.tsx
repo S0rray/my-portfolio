@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { FaGithub } from 'react-icons/fa';
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -20,6 +21,16 @@ export default function Footer() {
         </p>
 
         <div className="flex items-center gap-6">
+          <a
+            href="https://github.com/S0rray"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-xs hover:opacity-100 transition-opacity opacity-60"
+            style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-ui)' }}
+          >
+            <FaGithub size={14} />
+            GitHub
+          </a>
           <Link
             href="/mentions-legales"
             className="text-xs hover:opacity-100 transition-opacity opacity-60"

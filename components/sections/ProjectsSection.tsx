@@ -21,7 +21,7 @@ const PROJECTS: Project[] = [
     tech: 'WordPress',
     description:
       "Site réalisé sous WordPress, personnalisé et entièrement responsive pour l'Udaf de la Corrèze.",
-    image: '/projects/udaf19.png',
+    image: '/projects/udaf19.webp',
     href: 'https://udaf19.fr',
   },
   {
@@ -30,7 +30,7 @@ const PROJECTS: Project[] = [
     tech: 'React · Next.js',
     description:
       'Portfolio sur mesure pour une designeuse — galerie projets, animations soignées.',
-    image: '/projects/portfolio-indisiya.png',
+    image: '/projects/portfolio-indisiya.webp',
     comingSoon: true,
   },
   {
@@ -39,7 +39,7 @@ const PROJECTS: Project[] = [
     tech: 'HTML · CSS · JS',
     description:
       'Site fictif réalisé pour consolider les fondamentaux du développement web.',
-    image: '/projects/salon-coiffeur.png',
+    image: '/projects/salon-coiffeur.webp',
     comingSoon: true,
   },
 ];

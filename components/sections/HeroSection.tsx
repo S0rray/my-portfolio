@@ -1,5 +1,3 @@
-import { FaHtml5, FaCss3Alt, FaReact } from 'react-icons/fa';
-import { SiJavascript } from 'react-icons/si';
 import AnimatedArrows from '@/components/ui/AnimatedArrows';
 import TypewriterText from '@/components/ui/TypewriterText';
 
@@ -37,19 +35,6 @@ function arrowRM(idx: number): string {
   return `M${x} 0 L${x + CW_M} ${MID_M} L${x} ${BH_M}`;
 }
 
-const TECH_STACK = [
-  { key: 'html',  label: 'HTML 5'     },
-  { key: 'css',   label: 'CSS 3'      },
-  { key: 'js',    label: 'JavaScript' },
-  { key: 'react', label: 'React'      },
-];
-
-const TECH_ICONS = {
-  html:  <FaHtml5      size={38} color="#E34F26" aria-hidden />,
-  css:   <FaCss3Alt    size={38} color="#264DE4" aria-hidden />,
-  js:    <SiJavascript size={34} color="#F7DF1E" aria-hidden />,
-  react: <FaReact      size={38} color="#61DAFB" aria-hidden />,
-} as const;
 
 export default function HeroSection() {
   return (

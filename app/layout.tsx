@@ -43,8 +43,6 @@ export const metadata: Metadata = {
     description:
       "Portfolio d'Olivier Merlet, développeur web front-end spécialisé en React, Next.js et interfaces soignées.",
     siteName: "O Code",
-    // TODO: créer /public/og-image.png (1200×630px) puis décommenter :
-    // images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "O Code — Olivier Merlet" }],
   },
   twitter: {
     card: "summary_large_image",
