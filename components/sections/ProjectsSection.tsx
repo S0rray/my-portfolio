@@ -39,6 +39,7 @@ const PROJECTS: Project[] = [
     tech: 'HTML · CSS · JS',
     description:
       'Site fictif réalisé pour consolider les fondamentaux du développement web.',
+    image: '/projects/salon-coiffeur.png',
     comingSoon: true,
   },
 ];
@@ -73,7 +74,7 @@ export default function ProjectsSection() {
   };
 
   const arrowClass = (active: boolean) =>
-    `md:hidden shrink-0 w-9 h-9 rounded-full flex items-center justify-center border-2 transition-opacity duration-200 ${
+    `lg:hidden shrink-0 w-9 h-9 rounded-full flex items-center justify-center border-2 transition-opacity duration-200 ${
       active ? 'hover:opacity-80' : 'opacity-0 pointer-events-none'
     }`;
 
@@ -98,7 +99,7 @@ export default function ProjectsSection() {
           Desktop : CSS grid 3 colonnes, flèches masquées
          ────────────────────────────────────────────────────────────── */}
       <ScrollReveal delay={150}>
-        <div className="flex items-center gap-2 px-3 md:block md:px-0">
+        <div className="flex items-center gap-2 px-3 lg:block lg:px-0">
 
           {/* ← Précédent */}
           <button
@@ -123,14 +124,14 @@ export default function ProjectsSection() {
             ref={scrollRef}
             className={[
               'flex-1 flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-none',
-              'md:flex-none md:grid md:grid-cols-3 md:overflow-visible md:pb-0',
-              'md:max-w-5xl md:mx-auto',
+              'lg:flex-none lg:grid lg:grid-cols-3 lg:overflow-visible lg:pb-0',
+              'lg:max-w-5xl lg:mx-auto',
             ].join(' ')}
           >
             {PROJECTS.map((project) => (
               <article
                 key={project.key}
-                className="project-card snap-center shrink-0 w-full md:w-auto flex flex-col rounded-xl overflow-hidden"
+                className="project-card snap-center shrink-0 w-full lg:w-auto flex flex-col rounded-xl overflow-hidden"
                 style={{ backgroundColor: 'var(--bg-card)' }}
               >
                 {/* Chevron décoratif */}

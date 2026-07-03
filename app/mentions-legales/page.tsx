@@ -22,14 +22,14 @@ export default function MentionsLegales() {
             className="inline-flex items-center gap-2 text-sm mb-12 hover:opacity-70 transition-opacity"
             style={{ color: 'var(--accent)', fontFamily: 'var(--font-ui)' }}
           >
-            ← Retour au portfolio
+            &larr; Retour au portfolio
           </Link>
 
           <h1
             className="text-3xl sm:text-4xl font-bold mb-12"
             style={{ color: 'var(--accent)', fontFamily: 'var(--font-sans)' }}
           >
-            Mentions Légales
+            Mentions L&eacute;gales
           </h1>
 
           {[
@@ -37,14 +37,14 @@ export default function MentionsLegales() {
               title: 'Éditeur du site',
               body: (
                 <>
-                  Olivier Merlet — Développeur Web indépendant
+                  Olivier Merlet &mdash; D&eacute;veloppeur Web Front-end ind&eacute;pendant
                   <br />
                   Contact&nbsp;:{' '}
                   <a
-                    href="mailto:merlet.olivier@proton.me"
+                    href="mailto:contact@o-code.fr"
                     style={{ color: 'var(--accent)' }}
                   >
-                    merlet.olivier@proton.me
+                    contact@o-code.fr
                   </a>
                 </>
               ),
@@ -53,16 +53,16 @@ export default function MentionsLegales() {
               title: 'Hébergement',
               body: (
                 <>
-                  Ce site est hébergé par Vercel Inc., 440 N Barranca Ave #4133,
-                  Covina, CA 91723, États-Unis.
+                  Ce site est h&eacute;berg&eacute; par Infomaniak Network SA,
+                  Rue Eug&egrave;ne-Marziano 25, 1227 Les Acacias, Gen&egrave;ve, Suisse.
                   <br />
                   <a
-                    href="https://vercel.com"
+                    href="https://www.infomaniak.com"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ color: 'var(--accent)' }}
                   >
-                    vercel.com
+                    infomaniak.com
                   </a>
                 </>
               ),

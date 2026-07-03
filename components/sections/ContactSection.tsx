@@ -1,6 +1,6 @@
 import ScrollReveal from '@/components/ui/ScrollReveal';
 
-const CONTACT_EMAIL = 'merlet.olivier@proton.me';
+const CONTACT_EMAIL = 'contact@o-code.fr';
 
 export default function ContactSection() {
   return (

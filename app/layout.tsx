@@ -25,34 +25,37 @@ const aldrich = Aldrich({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://o-code.fr"),
   title: {
-    default: "Olivier Merlet — Développeur Web Full Stack",
-    template: "%s — Olivier Merlet",
+    default: "O Code — Olivier Merlet, Développeur Web Front-end",
+    template: "%s — O Code",
   },
   description:
-    "Portfolio d'Olivier Merlet, développeur web full stack spécialisé en React, Next.js et design soigné. Du design à la logique, je construis le web de bout en bout.",
-  keywords: ["développeur web", "full stack", "React", "Next.js", "portfolio", "Olivier Merlet"],
-  authors: [{ name: "Olivier Merlet" }],
+    "Portfolio d'Olivier Merlet, développeur web front-end spécialisé en React, Next.js et interfaces soignées. Design, performance et expérience utilisateur au coeur de chaque projet.",
+  keywords: ["développeur web", "front-end", "React", "Next.js", "portfolio", "Olivier Merlet", "o-code"],
+  authors: [{ name: "Olivier Merlet", url: "https://o-code.fr" }],
   creator: "Olivier Merlet",
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    title: "Olivier Merlet — Développeur Web Full Stack",
+    url: "https://o-code.fr",
+    title: "O Code — Olivier Merlet, Développeur Web Front-end",
     description:
-      "Portfolio d'Olivier Merlet, développeur web full stack spécialisé en React, Next.js et design soigné.",
-    siteName: "Olivier Merlet Portfolio",
-    // TODO: créer /public/og-image.png (1200×630px) pour l'aperçu sur les réseaux sociaux
-    // images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Olivier Merlet" }],
+      "Portfolio d'Olivier Merlet, développeur web front-end spécialisé en React, Next.js et interfaces soignées.",
+    siteName: "O Code",
+    // TODO: créer /public/og-image.png (1200×630px) puis décommenter :
+    // images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "O Code — Olivier Merlet" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Olivier Merlet — Développeur Web Full Stack",
+    title: "O Code — Olivier Merlet, Développeur Web Front-end",
     description:
-      "Portfolio d'Olivier Merlet, développeur web full stack spécialisé en React, Next.js et design soigné.",
+      "Portfolio d'Olivier Merlet, développeur web front-end spécialisé en React, Next.js et interfaces soignées.",
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: { index: true, follow: true },
   },
 };
 

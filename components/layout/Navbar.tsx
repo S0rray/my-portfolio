@@ -46,7 +46,7 @@ export default function Navbar() {
       {/* Logo */}
       <a
         href="#hero"
-        className="mr-auto flex items-center"
+        className="mr-auto flex items-center gap-4"
         aria-label="O Code — retour en haut"
       >
         <Image

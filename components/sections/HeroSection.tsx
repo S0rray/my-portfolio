@@ -3,13 +3,13 @@ import { SiJavascript } from 'react-icons/si';
 import AnimatedArrows from '@/components/ui/AnimatedArrows';
 import TypewriterText from '@/components/ui/TypewriterText';
 
-// ── Chevron banner geometry — desktop (h-32.5 = 130px) ───────────────
+// -- Chevron banner geometry -- desktop (h-32.5 = 130px)
 const BH     = 130;
 const MID    = BH / 2;
 const CW     = 60;
 const STEP   = 25;
 const OFFSET = 15;
-const TW     = OFFSET + 4 * STEP + CW;  // 145px — 4 chevrons
+const TW     = OFFSET + 4 * STEP + CW;  // 145px -- 4 chevrons
 
 function arrowL(idx: number): string {
   const x = OFFSET + idx * STEP;
@@ -20,13 +20,13 @@ function arrowR(idx: number): string {
   return `M${x} 0 L${x + CW} ${MID} L${x} ${BH}`;
 }
 
-// ── Chevron banner geometry — mobile (h-20 = 80px) ────────────────────
+// -- Chevron banner geometry -- mobile (h-20 = 80px)
 const BH_M     = 80;
 const MID_M    = BH_M / 2;
 const CW_M     = 30;
 const STEP_M   = 16;
 const OFFSET_M = 8;
-const TW_M     = OFFSET_M + 2 * STEP_M + CW_M;  // 70px — 2 chevrons
+const TW_M     = OFFSET_M + 2 * STEP_M + CW_M;  // 70px -- 2 chevrons
 
 function arrowLM(idx: number): string {
   const x = OFFSET_M + idx * STEP_M;
@@ -61,7 +61,7 @@ export default function HeroSection() {
       {/* Spacer for fixed navbar */}
       <div className="h-17.75" aria-hidden="true" />
 
-      {/* Watermark — centré sur la zone sous le bandeau */}
+      {/* Watermark */}
       <div
         aria-hidden="true"
         className="pointer-events-none select-none absolute left-0 right-0 bottom-0 flex items-center justify-center overflow-hidden"
@@ -83,18 +83,15 @@ export default function HeroSection() {
         </span>
       </div>
 
-      {/* ── Decorative chevron banner ─────────────────────────────────────
-          Transparent background. Two luminous spheres (FFC41A → 0000FF)
-          on each edge, with 4 solid chevrons per side.
-         ─────────────────────────────────────────────────────────────── */}
+      {/* Decorative chevron banner */}
       <div
         className="animate-reveal-ltr relative w-full overflow-hidden shrink-0 h-20 sm:h-32.5"
         style={{ animationDelay: '0.15s' }}
       >
-        {/* Sphères lumineuses — taille responsive via CSS (.hero-spheres) */}
+        {/* Spheres */}
         <div className="hero-spheres" aria-hidden="true" />
 
-        {/* Left group — mobile : 2 chevrons (h-20 = 80px) */}
+        {/* Left group - mobile : 2 chevrons */}
         <div className="sm:hidden absolute left-0 inset-y-0 pointer-events-none" aria-hidden="true">
           <svg width={TW_M} height={BH_M} viewBox={`0 0 ${TW_M} ${BH_M}`}>
             {[0, 1].map((i) => (
@@ -105,7 +102,7 @@ export default function HeroSection() {
           </svg>
         </div>
 
-        {/* Right group — mobile : 2 chevrons */}
+        {/* Right group - mobile : 2 chevrons */}
         <div className="sm:hidden absolute right-0 inset-y-0 pointer-events-none" aria-hidden="true">
           <svg width={TW_M} height={BH_M} viewBox={`0 0 ${TW_M} ${BH_M}`}>
             {[0, 1].map((i) => (
@@ -116,7 +113,7 @@ export default function HeroSection() {
           </svg>
         </div>
 
-        {/* Left group — desktop : 4 chevrons (sm:h-32.5 = 130px) */}
+        {/* Left group - desktop : 4 chevrons */}
         <div className="hidden sm:block absolute left-0 inset-y-0 pointer-events-none" aria-hidden="true">
           <svg width={TW} height={BH} viewBox={`0 0 ${TW} ${BH}`}>
             {[0, 1, 2, 3].map((i) => (
@@ -127,7 +124,7 @@ export default function HeroSection() {
           </svg>
         </div>
 
-        {/* Right group — desktop : 4 chevrons */}
+        {/* Right group - desktop : 4 chevrons */}
         <div className="hidden sm:block absolute right-0 inset-y-0 pointer-events-none" aria-hidden="true">
           <svg width={TW} height={BH} viewBox={`0 0 ${TW} ${BH}`}>
             {[0, 1, 2, 3].map((i) => (
@@ -145,15 +142,15 @@ export default function HeroSection() {
             style={{
               color: 'var(--text)',
               fontFamily: 'var(--font-display)',
-              textShadow: '0 1px 4px rgba(0,7,32,0.85)',
+              textShadow: 'var(--hero-text-shadow)',
             }}
           >
-            O Code — <TypewriterText />
+            O Code &mdash; <TypewriterText />
           </p>
         </div>
       </div>
 
-      {/* ── Tech stack logos ─────────────────────────────────────────── */}
+      {/* Tech stack logos (commented out) */}
       {/* <div
         className="animate-fade-up px-6 pt-10 max-w-4xl mx-auto w-full"
         style={{ animationDelay: '0.35s' }}
@@ -175,10 +172,36 @@ export default function HeroSection() {
         </div>
       </div> */}
 
-      {/* Spacer pushing scroll indicator to bottom */}
+      {/* Spacer pushing content to bottom */}
       <div className="flex-1" aria-hidden="true" />
 
-      {/* ── Scroll indicator ─────────────────────────────────────────── */}
+      {/* Text block - bottom of flex on mobile, absolute bottom-left on desktop */}
+      <div
+        className="animate-fade-up px-6 pb-36 max-w-lg md:px-0 md:pb-0 md:absolute md:left-10 md:bottom-10 lg:left-24"
+        style={{ animationDelay: '0.45s' }}
+      >
+        <p
+          className="text-sm leading-relaxed"
+          style={{
+            color: 'var(--text-muted)',
+            fontFamily: 'var(--font-sans)',
+            textShadow: 'var(--hero-text-shadow)',
+          }}
+        >
+          Le d&eacute;veloppement front end est le point de rencontre entre la technique, le design
+          et l&apos;exp&eacute;rience utilisateur. Il consiste &agrave; transformer des id&eacute;es,
+          des besoins fonctionnels et des maquettes en interfaces web modernes, dans un contexte
+          performant et accessible sur tous les supports.
+          <br /><br />
+          Dans un monde o&ugrave; la pr&eacute;sence num&eacute;rique est devenue essentielle,
+          le d&eacute;veloppeur front-end joue un r&ocirc;le cl&eacute; dans la cr&eacute;ation
+          d&apos;exp&eacute;riences intuitives, fluides et engageantes &mdash; capables de
+          r&eacute;pondre aux exigences actuelles tout en valorisant l&apos;identit&eacute; et les
+          ambitions des projets qu&apos;il accompagne.
+        </p>
+      </div>
+
+      {/* Scroll indicator */}
       <div
         className="animate-fade-up absolute right-4 sm:right-6 bottom-10 flex flex-col items-center gap-3"
         style={{ animationDelay: '0.55s' }}
