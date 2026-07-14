@@ -1,30 +1,36 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 
 const NAV_LINKS = [
-  { label: 'Accueil',         href: '#hero'     },
-  { label: 'À propos de moi', href: '#about'    },
-  { label: 'Projets',         href: '#projects' },
-  { label: 'Contact',         href: '#contact'  },
+  { label: 'Accueil',         anchor: 'hero'     },
+  { label: 'À propos de moi', anchor: 'about'    },
+  { label: 'Projets',         anchor: 'projects' },
+  { label: 'Contact',         anchor: 'contact'  },
 ] as const;
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>('hero');
+  const pathname  = usePathname();
+  const isHome    = pathname === '/';
+  const headerRef = useRef<HTMLElement>(null);
 
+  const [scrolled,       setScrolled]       = useState(false);
+  const [menuOpen,       setMenuOpen]       = useState(false);
+  const [activeSection,  setActiveSection]  = useState<string>('hero');
+
+  // Scroll : fond navbar + section active (home seulement)
   useEffect(() => {
     const onScroll = () => {
       const y = window.scrollY;
       setScrolled(y > 40);
+      if (!isHome) return;
       for (let i = NAV_LINKS.length - 1; i >= 0; i--) {
-        const id = NAV_LINKS[i].href.slice(1);
-        const el = document.getElementById(id);
+        const el = document.getElementById(NAV_LINKS[i].anchor);
         if (el && el.offsetTop <= y + 120) {
-          setActiveSection(id);
+          setActiveSection(NAV_LINKS[i].anchor);
           break;
         }
       }
@@ -32,10 +38,27 @@ export default function Navbar() {
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [isHome]);
+
+  // Fermeture du menu mobile au clic en dehors
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [menuOpen]);
+
+  // Href conditionnel : ancre si on est sur la home, URL absolue sinon
+  const getHref = (anchor: string) =>
+    isHome ? `#${anchor}` : anchor === 'hero' ? '/' : `/#${anchor}`;
 
   return (
     <header
+      ref={headerRef}
       className="fixed top-0 left-0 right-0 z-50 h-17.75 flex items-center px-6 transition-all duration-300"
       style={{
         backgroundColor: scrolled ? 'var(--nav-bg-scrolled)' : 'var(--nav-bg)',
@@ -45,7 +68,7 @@ export default function Navbar() {
     >
       {/* Logo */}
       <a
-        href="#hero"
+        href={isHome ? '#hero' : '/'}
         className="mr-auto flex items-center gap-4"
         aria-label="O Code — retour en haut"
       >
@@ -62,12 +85,12 @@ export default function Navbar() {
 
       {/* Desktop nav links */}
       <nav aria-label="Navigation principale" className="hidden md:flex items-center gap-8">
-        {NAV_LINKS.map(({ label, href }) => {
-          const isActive = activeSection === href.slice(1);
+        {NAV_LINKS.map(({ label, anchor }) => {
+          const isActive = isHome && activeSection === anchor;
           return (
             <a
-              key={href}
-              href={href}
+              key={anchor}
+              href={getHref(anchor)}
               className={`text-sm pb-0.5 transition-all duration-200 ${isActive ? 'opacity-100' : 'opacity-65 hover:opacity-100'}`}
               style={{
                 color: 'var(--text)',
@@ -118,10 +141,10 @@ export default function Navbar() {
             borderBottom: '1px solid rgba(255,255,255,0.06)',
           }}
         >
-          {NAV_LINKS.map(({ label, href }) => (
+          {NAV_LINKS.map(({ label, anchor }) => (
             <a
-              key={href}
-              href={href}
+              key={anchor}
+              href={getHref(anchor)}
               onClick={() => setMenuOpen(false)}
               className="text-sm py-1 opacity-80 hover:opacity-100 transition-opacity"
               style={{ color: 'var(--text)', fontFamily: 'var(--font-ui)' }}

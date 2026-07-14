@@ -3,15 +3,17 @@ import type { NextRequest } from 'next/server';
 
 // Activer via variable d'environnement sur le VPS (sans rebuild)
 // Sur le VPS : ajouter MAINTENANCE_MODE=true dans .env.local puis pm2 restart
-const MAINTENANCE_MODE = process.env.MAINTENANCE_MODE === 'true';
-
 export function proxy(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
   if (
-    MAINTENANCE_MODE &&
-    !request.nextUrl.pathname.startsWith('/maintenance')
+    process.env.MAINTENANCE_MODE === 'true' &&
+    !pathname.startsWith('/maintenance') &&
+    !pathname.startsWith('/mentions-legales')
   ) {
     return NextResponse.redirect(new URL('/maintenance', request.url));
   }
+
   return NextResponse.next();
 }
 

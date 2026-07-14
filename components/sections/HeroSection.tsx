@@ -135,28 +135,6 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Tech stack logos (commented out) */}
-      {/* <div
-        className="animate-fade-up px-6 pt-10 max-w-4xl mx-auto w-full"
-        style={{ animationDelay: '0.35s' }}
-      >
-        <div className="flex items-end gap-10 sm:gap-14">
-          {TECH_STACK.map(({ key, label }) => (
-            <div key={key} className="flex flex-col items-center gap-2">
-              <div className="shrink-0 flex items-center justify-center h-10">
-                {TECH_ICONS[key as keyof typeof TECH_ICONS]}
-              </div>
-              <span
-                className="text-[11px] text-center whitespace-nowrap"
-                style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-ui)' }}
-              >
-                {label}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div> */}
-
       {/* Spacer pushing content to bottom */}
       <div className="flex-1" aria-hidden="true" />
 
