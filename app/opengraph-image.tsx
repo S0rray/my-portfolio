@@ -1,9 +1,14 @@
 import { ImageResponse } from 'next/og';
+import { readFile } from 'fs/promises';
+import { join } from 'path';
 
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-export default function OGImage() {
+export default async function OGImage() {
+  const logoData = await readFile(join(process.cwd(), 'public/Logo.png'));
+  const logoSrc = `data:image/png;base64,${logoData.toString('base64')}`;
+
   return new ImageResponse(
     (
       <div
@@ -19,6 +24,14 @@ export default function OGImage() {
           fontFamily: 'system-ui, sans-serif',
         }}
       >
+        {/* Logo */}
+        <img
+          src={logoSrc}
+          width={72}
+          height={72}
+          style={{ marginBottom: 36, objectFit: 'contain' }}
+        />
+
         <div
           style={{
             width: 56,
