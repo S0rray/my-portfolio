@@ -40,7 +40,8 @@ const PROJECTS: Project[] = [
     description:
       'Site fictif réalisé pour consolider les fondamentaux du développement web.',
     image: '/projects/salon-coiffeur.webp',
-    comingSoon: true,
+    href: 'https://salon-coiffeur.o-code.fr',
+    comingSoon: false,
   },
 ];
 
