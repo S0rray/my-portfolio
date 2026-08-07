@@ -36,7 +36,7 @@ const PROJECTS: Project[] = [
   {
     key: 'site-exercice',
     title: "Site d'Exercice",
-    tech: 'HTML · CSS · JS',
+    tech: 'React · Next.js',
     description:
       'Site fictif réalisé pour consolider les fondamentaux du développement web.',
     image: '/projects/salon-coiffeur.webp',
