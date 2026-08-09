@@ -27,7 +27,7 @@ const PROJECTS: Project[] = [
   {
     key: 'portfolio-designeuse',
     title: 'Portfolio Designeuse',
-    tech: 'React · Next.js',
+    tech: 'React · Next.js · Sanity',
     description:
       'Portfolio sur mesure pour une designeuse — galerie projets, animations soignées.',
     image: '/projects/portfolio-indisiya.webp',
