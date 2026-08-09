@@ -30,7 +30,7 @@ const PROJECTS: Project[] = [
     tech: 'React · Next.js · Sanity',
     description:
       'Portfolio sur mesure pour une designeuse — galerie projets, animations soignées.',
-    image: '/projects/portfolio-indisiya.webp',
+    image: '/projects/portfolio-designeuse.webp',
     comingSoon: true,
   },
   {
