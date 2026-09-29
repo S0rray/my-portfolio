@@ -21,6 +21,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     // Sync React state with the data-theme already set by the anti-flash script
     const current = document.documentElement.getAttribute('data-theme') as Theme | null;
     if (current === 'light' || current === 'dark') {
+      // Deliberate one-time sync after mount: keeps SSR/hydration consistent
+      // (server always renders 'dark') while adopting the real theme the
+      // anti-flash script already applied to the DOM before React hydrated.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTheme(current);
     }
   }, []);
