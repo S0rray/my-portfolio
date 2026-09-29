@@ -31,10 +31,25 @@ export const metadata: Metadata = {
     template: "%s — O Code",
   },
   description:
-    "Portfolio d'Olivier Merlet, développeur web front-end spécialisé en React, Next.js et interfaces soignées. Design, performance et expérience utilisateur au coeur de chaque projet.",
-  keywords: ["développeur web", "front-end", "React", "Next.js", "portfolio", "Olivier Merlet", "o-code"],
+    "Olivier Merlet (O Code), développeur web front-end spécialisé en React et Next.js. Portfolio présentant ses projets, son parcours et ses compétences.",
+  keywords: [
+    "Olivier Merlet",
+    "Olivier Merlet développeur",
+    "Olivier Merlet portfolio",
+    "O Code",
+    "o-code",
+    "ocode",
+    "développeur web",
+    "front-end",
+    "React",
+    "Next.js",
+    "portfolio",
+  ],
   authors: [{ name: "Olivier Merlet", url: "https://o-code.fr" }],
   creator: "Olivier Merlet",
+  alternates: {
+    canonical: "https://o-code.fr",
+  },
   openGraph: {
     type: "website",
     locale: "fr_FR",
@@ -55,6 +70,18 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true },
   },
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Olivier Merlet",
+  alternateName: ["O Code", "o-code", "ocode"],
+  url: "https://o-code.fr",
+  jobTitle: "Développeur Web Front-end",
+  description:
+    "Développeur web front-end spécialisé en React et Next.js, reconverti des télécoms.",
+  sameAs: ["https://github.com/S0rray"],
 };
 
 export default function RootLayout({
@@ -85,6 +112,10 @@ export default function RootLayout({
               }
             `,
           }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
       </head>
       <body className="min-h-full flex flex-col antialiased">
